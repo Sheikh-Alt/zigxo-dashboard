@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import type { UserInfo, TenantInfo, DeviceInfo, LeadInfo, SessionInfo, LeadStatus } from '../types';
+import type { UserInfo, TenantInfo, DeviceInfo, SessionInfo } from '../types';
 import {
-  mockUser, mockTenant, mockDevice, mockLead, mockSession,
+  mockUser, mockTenant, mockDevice, mockSession,
   mockChatHistory, mockAnalytics, mockQuickActions,
 } from '../data/mockData';
 
@@ -9,7 +9,6 @@ export function useDashboardData() {
   const [user, setUser] = useState<UserInfo>(mockUser);
   const [tenant, setTenant] = useState<TenantInfo>(mockTenant);
   const [device, setDevice] = useState<DeviceInfo>(mockDevice);
-  const [lead, setLead] = useState<LeadInfo>(mockLead);
   const [session, setSession] = useState<SessionInfo>(mockSession);
   const [chatHistory] = useState(mockChatHistory);
   const [analytics] = useState(mockAnalytics);
@@ -24,14 +23,11 @@ export function useDashboardData() {
   const updateDeviceField = (field: keyof DeviceInfo, value: string) =>
     setDevice((prev) => ({ ...prev, [field]: value }));
 
-  const updateLeadStatus = (status: LeadStatus) =>
-    setLead((prev) => ({ ...prev, leadStatus: status }));
-
   const updateSessionField = (field: keyof SessionInfo, value: string) =>
     setSession((prev) => ({ ...prev, [field]: value }));
 
   return {
-    user, tenant, device, lead, session, chatHistory, analytics, quickActions,
-    updateUserField, updateTenantField, updateDeviceField, updateLeadStatus, updateSessionField,
+    user, tenant, device, session, chatHistory, analytics, quickActions,
+    updateUserField, updateTenantField, updateDeviceField, updateSessionField,
   };
 }

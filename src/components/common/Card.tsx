@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+
 interface CardProps {
   title?: string;
   children: ReactNode;
@@ -7,8 +8,8 @@ interface CardProps {
 
 export default function Card({ title, children, className = '' }: CardProps) {
   return (
-    <div className={`bg-white border border-gray-200 rounded-xl shadow-sm p-5 ${className}`}>
-      {title && <h3 className="text-sm font-semibold text-gray-900 mb-4 tracking-tight">{title}</h3>}
+    <div className={`bg-white/60 dark:bg-zinc-900/40 backdrop-blur-md border-[0.5px] border-zinc-200/50 dark:border-zinc-800/40 rounded-xl shadow-sm p-6 transition-colors duration-300 ${className}`}>
+      {title && <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-4 tracking-tight">{title}</h3>}
       {children}
     </div>
   );

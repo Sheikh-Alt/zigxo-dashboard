@@ -1,17 +1,16 @@
-export type LeadStatus = 'New' | 'Contacted' | 'Qualified' | 'Converted' | 'Lost';
 export type SessionStatus = 'active' | 'ended';
 export type DeviceStatus = 'online' | 'offline';
 
 export interface UserInfo {
   userId: string;
-  userName: string;       // editable
-  phoneNumber: string;    // editable
+  userName: string;
+  phoneNumber: string;
   email: string;
   role: string;
 }
 
 export interface TenantInfo {
-  tenantId: string;       // editable
+  tenantId: string;
   tenantName: string;
   plan: 'Free' | 'Pro' | 'Enterprise';
   industry: string;
@@ -19,30 +18,16 @@ export interface TenantInfo {
 }
 
 export interface DeviceInfo {
-  deviceId: string;       // editable
+  deviceId: string;
   deviceName: string;
-  channel: string;        // editable
-  temperature: number;    // read-only
-  humidity: number;       // read-only
-  lastAlarm: string;      // read-only
-  lastSeen: string;       // read-only
+  channel: string;
   status: DeviceStatus;
-}
-
-export interface LeadInfo {
-  leadId: string;
-  leadName: string;
-  leadStatus: LeadStatus; // editable
-  source: string;
-  email: string;
-  phone: string;
-  createdAt: string;
 }
 
 export interface SessionInfo {
   sessionId: string;
-  botName: string;          // editable
-  instructionSet: string;   // editable
+  botName: string;
+  instructionSet: string;
   channel: string;
   startedAt: string;
   status: SessionStatus;
@@ -67,4 +52,34 @@ export interface QuickAction {
   id: string;
   label: string;
   description: string;
+}
+
+export interface BotInfo {
+  botId: string;
+  botName: string;
+  status: 'active' | 'coming-soon';
+  colorDot: string;
+}
+
+export interface ThingsBoardUserMapping {
+  id: string;
+  name: string;
+  email: string;
+  botId: string | null;
+  deviceIds: string[];
+  telemetryStatus: 'live' | 'offline' | 'none';
+}
+
+export interface DeviceTelemetry {
+  deviceId: string;
+  status: 'online' | 'offline';
+  metrics: { label: string; value: string }[];
+}
+
+export interface TopicTag {
+  id: string;
+  name: string;
+  description: string;
+  icon: string;
+  selected?: boolean;
 }
