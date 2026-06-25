@@ -13,7 +13,7 @@ export interface TenantInfo {
   tenantId: string;
   tenantName: string;
   plan: 'Free' | 'Pro' | 'Enterprise';
-  industry: string;
+  description: string;
   createdAt: string;
 }
 
@@ -82,4 +82,36 @@ export interface TopicTag {
   description: string;
   icon: string;
   selected?: boolean;
+}
+
+export interface OverviewKPI {
+  id: string;
+  label: string;
+  value: string;
+  icon: string;
+  delta: string;
+  status: 'good' | 'warning' | 'critical';
+}
+
+export interface AlertItem {
+  id: string;
+  severity: 'info' | 'warning' | 'critical';
+  message: string;
+  timestamp: string;
+}
+
+export interface RecentTenantRow {
+  tenantId: string;
+  tenantName: string;
+  plan: 'Free' | 'Pro' | 'Enterprise';
+  createdAt: string;
+  status: 'active' | 'suspended';
+}
+
+export interface RecentUserRow {
+  userId: string;
+  userName: string;
+  email: string;
+  role: string;
+  lastActive: string;
 }

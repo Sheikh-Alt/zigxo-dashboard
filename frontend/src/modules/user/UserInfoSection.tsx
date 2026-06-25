@@ -10,7 +10,7 @@ export default function UserInfoSection({ user, onUpdate }: Props) {
     <Card title="User Information">
       <EditableField label="User Name" value={user.userName} onSave={(v) => onUpdate('userName', v)} />
       <EditableField label="Phone Number" value={user.phoneNumber} onSave={(v) => onUpdate('phoneNumber', v)} />
-      <ReadOnlyField label="Email" value={user.email} />
+      <EditableField label="Email" value={user.email} onSave={(v) => onUpdate('email', v)} />
       <ReadOnlyField label="Role" value={user.role} />
     </Card>
   );

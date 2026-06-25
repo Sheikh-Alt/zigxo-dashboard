@@ -2,6 +2,7 @@ import type {
   UserInfo, TenantInfo, DeviceInfo, SessionInfo,
   ChatMessage, AnalyticsMetric, QuickAction,
   BotInfo, ThingsBoardUserMapping, DeviceTelemetry, TopicTag,
+  OverviewKPI, AlertItem, RecentTenantRow, RecentUserRow,
 } from '../types';
 
 export const mockUser: UserInfo = {
@@ -16,7 +17,7 @@ export const mockTenant: TenantInfo = {
   tenantId: 'TEN-7841',
   tenantName: 'Zigxo Retail Pvt Ltd',
   plan: 'Pro',
-  industry: 'Retail & E-commerce',
+  description: 'AI-powered retail & e-commerce operations platform',
   createdAt: '2024-11-12',
 };
 
@@ -59,15 +60,15 @@ export const mockQuickActions: QuickAction[] = [
 ];
 
 export const mockBots: BotInfo[] = [
-  { botId: 'CGB-001', botName: 'City Greens Bot', status: 'active', colorDot: 'bg-indigo-500' },
-  { botId: 'BOT-002', botName: 'Bot 2 (Coming Soon)', status: 'coming-soon', colorDot: 'bg-zinc-300 dark:bg-zinc-700' },
+  { botId: 'TB-001', botName: 'Thingsboard Bot', status: 'active', colorDot: 'bg-indigo-500' },
+  { botId: 'BDA-001', botName: 'BDA Sales Bot', status: 'active', colorDot: 'bg-purple-500' },
 ];
 
 export const mockThingsBoardUsers: ThingsBoardUserMapping[] = [
-  { id: 'u1', name: 'Alice Chen', email: 'alice@zigxo.io', botId: 'CGB-001', deviceIds: ['DEV-1001', 'DEV-1002'], telemetryStatus: 'live' },
-  { id: 'u2', name: 'Ravi Kumar', email: 'ravi@zigxo.io', botId: 'CGB-001', deviceIds: ['DEV-1003'], telemetryStatus: 'live' },
-  { id: 'u3', name: 'Sara Müller', email: 'sara@zigxo.io', botId: 'CGB-001', deviceIds: ['DEV-1004', 'DEV-1005'], telemetryStatus: 'live' },
-  { id: 'u4', name: 'James Obi', email: 'james@zigxo.io', botId: 'CGB-001', deviceIds: ['DEV-1006'], telemetryStatus: 'offline' },
+  { id: 'u1', name: 'Alice Chen', email: 'alice@zigxo.io', botId: 'TB-001', deviceIds: ['DEV-1001', 'DEV-1002'], telemetryStatus: 'live' },
+  { id: 'u2', name: 'Ravi Kumar', email: 'ravi@zigxo.io', botId: 'TB-001', deviceIds: ['DEV-1003'], telemetryStatus: 'live' },
+  { id: 'u3', name: 'Sara Müller', email: 'sara@zigxo.io', botId: 'BDA-001', deviceIds: ['DEV-1004', 'DEV-1005'], telemetryStatus: 'live' },
+  { id: 'u4', name: 'James Obi', email: 'james@zigxo.io', botId: 'BDA-001', deviceIds: ['DEV-1006'], telemetryStatus: 'offline' },
   { id: 'u5', name: 'Priya Nair', email: 'priya@zigxo.io', botId: null, deviceIds: [], telemetryStatus: 'none' },
 ];
 
@@ -83,4 +84,32 @@ export const mockDeviceTelemetry: Record<string, DeviceTelemetry> = {
 export const mockTopics: TopicTag[] = [
   { id: 't1', name: 'BDA / Sales', description: 'Leads, targets, revenue', icon: '📈', selected: true },
   { id: 't2', name: 'ThingsBoard', description: 'IoT, devices, sensors', icon: '🧩', selected: false },
+];
+
+export const mockOverviewKPIs: OverviewKPI[] = [
+  { id: 'k1', label: 'Total Tenants', value: '48', icon: 'Building2', delta: '+3 this week', status: 'good' },
+  { id: 'k2', label: 'Active Users', value: '1,284', icon: 'Users', delta: '+87 this month', status: 'good' },
+  { id: 'k3', label: 'System Health', value: '99.2%', icon: 'Activity', delta: 'All systems nominal', status: 'good' },
+  { id: 'k4', label: 'Active Sessions', value: '37', icon: 'Zap', delta: '+4 from yesterday', status: 'good' },
+];
+
+export const mockAlerts: AlertItem[] = [
+  { id: 'al2', severity: 'critical', message: 'API response time spike — avg 4.2s (threshold: 2s).', timestamp: '25 min ago' },
+  { id: 'al3', severity: 'info', message: '1 IoT device (DEV-1006) has gone offline.', timestamp: '1 hr ago' },
+];
+
+export const mockRecentTenants: RecentTenantRow[] = [
+  { tenantId: 'TEN-7841', tenantName: 'Zigxo Retail Pvt Ltd', plan: 'Pro', createdAt: '2024-11-12', status: 'active' },
+  { tenantId: 'TEN-7842', tenantName: 'GreenField Logistics', plan: 'Enterprise', createdAt: '2024-12-01', status: 'active' },
+  { tenantId: 'TEN-7843', tenantName: 'Urban Eats Co.', plan: 'Free', createdAt: '2025-01-15', status: 'active' },
+  { tenantId: 'TEN-7844', tenantName: 'NextWave Tech', plan: 'Pro', createdAt: '2025-03-08', status: 'suspended' },
+  { tenantId: 'TEN-7845', tenantName: 'Solaris Health', plan: 'Enterprise', createdAt: '2025-05-20', status: 'active' },
+];
+
+export const mockRecentUsers: RecentUserRow[] = [
+  { userId: 'USR-1001', userName: 'Ananya Sharma', email: 'ananya.sharma@example.com', role: 'Account Owner', lastActive: '2 min ago' },
+  { userId: 'USR-1002', userName: 'Raj Patel', email: 'raj.patel@example.com', role: 'Admin', lastActive: '15 min ago' },
+  { userId: 'USR-1003', userName: 'Emily Zhang', email: 'emily.zhang@example.com', role: 'Viewer', lastActive: '1 hr ago' },
+  { userId: 'USR-1004', userName: 'Carlos Mendez', email: 'carlos.m@example.com', role: 'Admin', lastActive: '3 hrs ago' },
+  { userId: 'USR-1005', userName: 'Fatima Al-Sayed', email: 'fatima.as@example.com', role: 'Viewer', lastActive: 'Yesterday' },
 ];

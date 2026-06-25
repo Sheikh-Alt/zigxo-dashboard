@@ -195,7 +195,6 @@ export default function ThingsBoardSection() {
               <th className="py-2 pr-4 font-medium">User</th>
               <th className="py-2 pr-4 font-medium">Bot</th>
               <th className="py-2 pr-4 font-medium">Devices</th>
-              <th className="py-2 pr-4 font-medium">Telemetry</th>
               <th className="py-2 pr-4 font-medium text-right">Actions</th>
             </tr>
           </thead>
@@ -230,11 +229,6 @@ export default function ThingsBoardSection() {
                         u.deviceIds.map((id) => <Badge key={id} label={id} color="blue" />)
                       )}
                     </div>
-                  </td>
-                  <td className="py-3 pr-4">
-                    {u.telemetryStatus === 'live' && <Badge label="Live" color="green" />}
-                    {u.telemetryStatus === 'offline' && <Badge label="Offline" color="gray" />}
-                    {u.telemetryStatus === 'none' && <span className="text-xs text-zinc-400 dark:text-zinc-500">—</span>}
                   </td>
                   <td className="py-3 pr-4">
                     <div className="flex items-center justify-end gap-1">
@@ -285,22 +279,11 @@ export default function ThingsBoardSection() {
             )}
             {selectedUser.deviceIds.map((id) => {
               const telemetry = mockDeviceTelemetry[id];
+              const isOnline = telemetry?.status === 'online';
               return (
-                <div key={id} className="border-[0.5px] border-zinc-200/60 dark:border-zinc-700/50 rounded-lg p-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100">{id}</p>
-                    <Badge label={telemetry?.status === 'online' ? 'Online' : 'Offline'} color={telemetry?.status === 'online' ? 'green' : 'gray'} />
-                  </div>
-                  {telemetry ? (
-                    telemetry.metrics.map((m) => (
-                      <div key={m.label} className="flex items-center justify-between text-xs py-1">
-                        <span className="text-zinc-500 dark:text-zinc-400">{m.label}</span>
-                        <span className="text-zinc-700 dark:text-zinc-300 font-medium">{m.value}</span>
-                      </div>
-                    ))
-                  ) : (
-                    <p className="text-xs text-zinc-400 dark:text-zinc-500">No telemetry data available.</p>
-                  )}
+                <div key={id} className="flex items-center justify-between border-[0.5px] border-zinc-200/60 dark:border-zinc-700/50 rounded-lg px-4 py-3">
+                  <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100">{id}</p>
+                  <Badge label={isOnline ? 'Online' : 'Offline'} color={isOnline ? 'green' : 'gray'} />
                 </div>
               );
             })}
