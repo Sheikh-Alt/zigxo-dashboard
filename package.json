@@ -4,7 +4,6 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "npm run dev --prefix frontend",
-    "server": "node backend/src/index.js",
     "build": "npm run build --prefix frontend"
   }
 }
