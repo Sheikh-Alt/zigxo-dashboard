@@ -8,6 +8,7 @@ import ChatHistorySection from '../modules/chat/ChatHistorySection';
 import AnalyticsSection from '../modules/analytics/AnalyticsSection';
 import QuickActionsSection from '../modules/quick-actions/QuickActionsSection';
 import ThingsBoardSection from '../modules/thingsboard/ThingsBoardSection';
+import ThingsBoardChatbot from '../modules/chatbot/ThingsBoardChatbot';
 import TopicsSection from '../modules/topics/TopicsSection';
 import UsersManagementSection from '../modules/usersManagement/UsersManagementSection';
 import { useDashboardData } from '../hooks/useDashboardData';
@@ -44,6 +45,8 @@ export default function Dashboard() {
         return <TopicsSection />;
       case 'ThingsBoard':
         return <ThingsBoardSection />;
+      case 'TB Chatbot':
+        return <ThingsBoardChatbot />;
       case 'Sessions':
         return <SessionsListSection />;
       case 'Users':

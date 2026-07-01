@@ -8,8 +8,13 @@ import {
   Cpu,
   Activity,
   MessageSquare,
+  MessageCircle,
   ChevronDown,
   Settings,
+  User,
+  Sliders,
+  Palette,
+  LogOut,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
@@ -38,6 +43,7 @@ const navGroups: NavGroup[] = [
       { label: 'Users', icon: Users },
       { label: 'Agents', icon: Bot },
       { label: 'ThingsBoard', icon: Cpu },
+      { label: 'TB Chatbot', icon: MessageCircle },
     ],
   },
   {
@@ -71,6 +77,21 @@ export default function Sidebar({ activePage, onPageChange }: SidebarProps) {
   const startWidth = useRef(0);
 
   const isCollapsed = sidebarWidth < COLLAPSE_THRESHOLD;
+
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const settingsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (settingsRef.current && !settingsRef.current.contains(e.target as Node)) {
+        setSettingsOpen(false);
+      }
+    };
+    if (settingsOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [settingsOpen]);
 
   const toggleGroup = (group: string) => {
     setOpenGroups((prev) =>
@@ -215,22 +236,51 @@ export default function Sidebar({ activePage, onPageChange }: SidebarProps) {
       </nav>
 
       {/* Profile — anchored to bottom */}
-      <div className="border-t border-zinc-200/70 dark:border-zinc-800/60 px-3 py-3 flex items-center gap-2.5 overflow-hidden">
-        <span className="w-8 h-8 rounded-full bg-indigo-500/10 dark:bg-indigo-400/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-sm font-semibold shrink-0">
-          AD
-        </span>
-        {!isCollapsed && (
-          <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100 truncate">Admin</p>
-            <p className="text-xs text-zinc-400 dark:text-zinc-500 truncate">Super admin</p>
+      <div ref={settingsRef} className="relative">
+        {settingsOpen && (
+          <div className="absolute bottom-full left-2 right-2 mb-1.5 bg-white dark:bg-zinc-900 border border-zinc-200/70 dark:border-zinc-800/60 rounded-xl shadow-lg shadow-zinc-900/10 dark:shadow-zinc-900/40 py-1.5 z-50">
+            {([
+              { label: 'My Profile', icon: User },
+              { label: 'Workspace Settings', icon: Sliders },
+              { label: 'Appearance', icon: Palette },
+            ] as { label: string; icon: typeof User }[]).map(({ label, icon: Icon }) => (
+              <button
+                key={label}
+                className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors duration-150"
+              >
+                <Icon className="w-4 h-4 shrink-0 text-zinc-400 dark:text-zinc-500" />
+                {label}
+              </button>
+            ))}
+            <div className="mx-2 my-1 border-t border-zinc-200/70 dark:border-zinc-800/60" />
+            <button className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors duration-150">
+              <LogOut className="w-4 h-4 shrink-0" />
+              Log Out
+            </button>
           </div>
         )}
-        <button
-          title="Settings"
-          className="shrink-0 p-1.5 rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 transition-colors duration-150"
-        >
-          <Settings className="w-4 h-4" />
-        </button>
+        <div className="border-t border-zinc-200/70 dark:border-zinc-800/60 px-3 py-3 flex items-center gap-2.5 overflow-hidden">
+          <span className="w-8 h-8 rounded-full bg-indigo-500/10 dark:bg-indigo-400/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-sm font-semibold shrink-0">
+            AD
+          </span>
+          {!isCollapsed && (
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100 truncate">Admin</p>
+              <p className="text-xs text-zinc-400 dark:text-zinc-500 truncate">Super admin</p>
+            </div>
+          )}
+          <button
+            onClick={() => setSettingsOpen((prev) => !prev)}
+            title="Settings"
+            className={`shrink-0 p-1.5 rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors duration-150 ${
+              settingsOpen
+                ? 'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-200'
+                : 'text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200'
+            }`}
+          >
+            <Settings className="w-4 h-4" />
+          </button>
+        </div>
       </div>
 
       {/* Drag-resize handle */}
