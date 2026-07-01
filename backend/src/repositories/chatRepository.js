@@ -16,6 +16,15 @@ const init = async () => {
       device_name TEXT
     )
   `);
+
+  // Seed authorised phone → device mappings
+  // device_id stores the ThingsBoard device name initially;
+  // chatService resolves it to the real UUID on first use and updates this row.
+  await db.query(`
+    INSERT INTO phone_device_map (phone, device_id, device_name)
+    VALUES ('9886605591', 'IH0025', 'IH0025')
+    ON CONFLICT (phone) DO NOTHING
+  `);
 };
 
 const createSession = ({ name, phone }) =>

@@ -46,11 +46,11 @@ async function getDevices() {
   return data.data ?? [];
 }
 
-// Returns latest telemetry values for a device
-async function getLatestTelemetry(deviceId, keys = 'Temperature,Humidity,CO2') {
+// Returns latest telemetry values for a device (all keys)
+async function getLatestTelemetry(deviceId) {
   const token = await getToken();
   const { data } = await axios.get(
-    `${TB_URL}/api/plugins/telemetry/DEVICE/${deviceId}/values/timeseries?keys=${keys}`,
+    `${TB_URL}/api/plugins/telemetry/DEVICE/${deviceId}/values/timeseries`,
     { headers: authHeader(token) }
   );
   return data;
